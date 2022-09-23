@@ -1,4 +1,4 @@
-## DatepicketWeb
+## DatepickerWeb
 [My widget description]
 
 ## Features

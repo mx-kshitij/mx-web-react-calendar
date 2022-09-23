@@ -1,4 +1,4 @@
-import { DatepicketWebPreviewProps } from "../typings/DatepicketWebProps";
+import { DatepickerWebPreviewProps } from "../typings/DatepickerWebProps";
 
 type Properties = PropertyGroup[];
 
@@ -31,7 +31,7 @@ type ObjectProperties = {
     captions?: string[]; // used for customizing object grids
 };
 
-export function getProperties(_values: DatepicketWebPreviewProps, defaultProperties: Properties): Properties {
+export function getProperties(_values: DatepickerWebPreviewProps, defaultProperties: Properties): Properties {
     // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
     /* Example
     if (values.myProperty === "custom") {
@@ -41,7 +41,7 @@ export function getProperties(_values: DatepicketWebPreviewProps, defaultPropert
     return defaultProperties;
 }
 
-export function check(_values: DatepicketWebPreviewProps): Problem[] {
+export function check(_values: DatepickerWebPreviewProps): Problem[] {
     const errors: Problem[] = [];
     // Add errors to the above array to throw errors in Studio and Studio Pro.
     /* Example

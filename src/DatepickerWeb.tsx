@@ -1,12 +1,12 @@
 import { ReactElement, createElement, useState, useCallback, useEffect } from "react";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar, Day, DayValue } from "react-modern-calendar-datepicker";
-import { DatepicketWebContainerProps } from "../typings/DatepicketWebProps";
+import { DatepickerWebContainerProps } from "../typings/DatepickerWebProps";
 import { ValueStatus } from "mendix";
 
-import "./ui/DatepicketWeb.css";
+import "./ui/DatepickerWeb.css";
 
-export function DatepicketWeb({
+export function DatepickerWeb({
     name,
     displayContent,
     attribute,
@@ -16,13 +16,15 @@ export function DatepicketWeb({
     calendarClassName,
     calendarTodayClassName,
     calendarSelectedDayClassName
-}: DatepicketWebContainerProps): ReactElement {
+}: DatepickerWebContainerProps): ReactElement {
 
-    //Check if 
+    //Check if all attributes are loaded
     if ((attribute && attribute.status === ValueStatus.Loading) || (minimumDateAttribute && minimumDateAttribute.status === ValueStatus.Loading) || (maximumDateAttribute && maximumDateAttribute.status === ValueStatus.Loading)) return (<div />);
 
+    // Today's date
     const today = new Date;
 
+    //State for selected date
     const [selectedDay, setSelectedDay] = useState<DayValue>(
         attribute.value ?
             {
@@ -36,8 +38,10 @@ export function DatepicketWeb({
                 day: today.getDate()
             }
     )
+
     const [showCalendar, setShowCalendar] = useState<Boolean>(false);
     
+    // Set minimum date
     var minimumDate: Day; 
     if(minimumDateAttribute?.value){
         minimumDate = {year: minimumDateAttribute.value?.getFullYear(), month: minimumDateAttribute.value?.getMonth() + 1, day: minimumDateAttribute.value?.getDate()}
@@ -47,6 +51,7 @@ export function DatepicketWeb({
         minimumDate = {year: minDate.getFullYear(), month: minDate.getMonth() + 1, day: minDate.getDate()}
     }
 
+    // Set maximum date
     var maximumDate: Day;
     if(maximumDateAttribute?.value){
         maximumDate = {year: maximumDateAttribute.value?.getFullYear(), month: maximumDateAttribute.value?.getMonth() + 1, day: maximumDateAttribute.value?.getDate()}
@@ -56,6 +61,7 @@ export function DatepicketWeb({
         maximumDate = {year: maxDate.getFullYear(), month: maxDate.getMonth() + 1, day: maxDate.getDate()}
     }
 
+    // Update attribute and widget on date save
     const onDateChange = useCallback((newDate: DayValue) => {
         if (newDate) {
             setSelectedDay({
@@ -78,6 +84,7 @@ export function DatepicketWeb({
         })
     }, [])
 
+    //Render the calendar if showCalendar is true
     const renderCalendar = useCallback(() => {
         if (showCalendar) {
             return (
@@ -100,6 +107,7 @@ export function DatepicketWeb({
         }
     }, [showCalendar, onDateChange])
 
+    //Return the widget components
     return (
         <div>
             <div onClick={() => setShowCalendar(true)} className="datePickerContent">{displayContent}</div>
