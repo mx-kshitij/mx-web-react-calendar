@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="mendix.datepicketweb.DatepicketWeb"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>Datepicket Web</name>
+    <description>My widget description</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <property key="displayContent" type="widgets" required="true">
+                <caption>Display content</caption>
+                <description />
+            </property>
+            <property key="attribute" type="attribute" onChange="onAttributeValueChange">
+                <caption>Attribute</caption>
+                <description />
+                <attributeTypes>
+                    <attributeType name="DateTime" />
+                </attributeTypes>
+            </property>
+            <property key="onAttributeValueChange" type="action">
+                <caption>On value change</caption>
+                <description />
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Settings">
+            <property key="minimumDateAttribute" type="attribute" required="false">
+                <caption>Minimum date</caption>
+                <description />
+                <attributeTypes>
+                    <attributeType name="DateTime" />
+                </attributeTypes>
+            </property>
+            <property key="maximumDateAttribute" type="attribute" required="false">
+                <caption>Maximum date</caption>
+                <description />
+                <attributeTypes>
+                    <attributeType name="DateTime" />
+                </attributeTypes>
+            </property>
+            <property key="colorPrimary" type="textTemplate" required="false">
+                <caption>Primary color</caption>
+                <description>Primary color of selected date</description>
+            </property>
+            <property key="calendarClassName" type="textTemplate" required="false">
+                <caption>Calendar class</caption>
+                <description/>
+            </property>
+            <property key="calendarTodayClassName" type="textTemplate" required="false">
+                <caption>Today class</caption>
+                <description/>
+            </property>
+            <property key="calendarSelectedDayClassName" type="textTemplate" required="false">
+                <caption>Selected day class</caption>
+                <description/>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>

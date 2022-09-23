@@ -1,0 +1,12 @@
+/*
+Place your custom CSS here
+*/
+.calendarOuterDiv {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.datePickerContent{
+    text-align: center;
+}
