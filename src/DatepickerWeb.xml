@@ -30,6 +30,19 @@
                 <description />
             </property>
         </propertyGroup>
+        <propertyGroup caption="Disabled days">
+            <property key="disabledDaysSource" type="datasource" isList="true" required="false">
+                <caption>Source</caption>
+                <description />
+            </property>
+            <property key="disabledDaysAttribute" type="attribute" dataSource="disabledDaysSource">
+                <caption>Attribute</caption>
+                <description>Date time attribute</description>
+                <attributeTypes>
+                    <attributeType name="DateTime" />
+                </attributeTypes>
+            </property>
+        </propertyGroup>
         <propertyGroup caption="Settings">
             <property key="minimumDateAttribute" type="attribute" required="false">
                 <caption>Minimum date</caption>
@@ -51,15 +64,15 @@
             </property>
             <property key="calendarClassName" type="textTemplate" required="false">
                 <caption>Calendar class</caption>
-                <description/>
+                <description />
             </property>
             <property key="calendarTodayClassName" type="textTemplate" required="false">
                 <caption>Today class</caption>
-                <description/>
+                <description />
             </property>
             <property key="calendarSelectedDayClassName" type="textTemplate" required="false">
                 <caption>Selected day class</caption>
-                <description/>
+                <description />
             </property>
         </propertyGroup>
     </properties>

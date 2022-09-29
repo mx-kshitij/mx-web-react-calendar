@@ -4,7 +4,7 @@
  * @author Mendix UI Content Team
  */
 import { ComponentType, CSSProperties, ReactNode } from "react";
-import { DynamicValue, EditableValue } from "mendix";
+import { DynamicValue, EditableValue, ListValue, ListAttributeValue } from "mendix";
 
 export interface DatepickerWebContainerProps {
     name: string;
@@ -13,6 +13,8 @@ export interface DatepickerWebContainerProps {
     tabIndex?: number;
     displayContent: ReactNode;
     attribute: EditableValue<Date>;
+    disabledDaysSource?: ListValue;
+    disabledDaysAttribute?: ListAttributeValue<Date>;
     minimumDateAttribute?: EditableValue<Date>;
     maximumDateAttribute?: EditableValue<Date>;
     colorPrimary?: DynamicValue<string>;
@@ -29,6 +31,8 @@ export interface DatepickerWebPreviewProps {
     displayContent: { widgetCount: number; renderer: ComponentType<{ caption?: string }> };
     attribute: string;
     onAttributeValueChange: {} | null;
+    disabledDaysSource: {} | { type: string } | null;
+    disabledDaysAttribute: string;
     minimumDateAttribute: string;
     maximumDateAttribute: string;
     colorPrimary: string;

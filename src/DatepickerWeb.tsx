@@ -15,7 +15,9 @@ export function DatepickerWeb({
     colorPrimary,
     calendarClassName,
     calendarTodayClassName,
-    calendarSelectedDayClassName
+    calendarSelectedDayClassName,
+    disabledDaysSource,
+    disabledDaysAttribute
 }: DatepickerWebContainerProps): ReactElement {
 
     //Check if all attributes are loaded
@@ -40,25 +42,25 @@ export function DatepickerWeb({
     )
 
     const [showCalendar, setShowCalendar] = useState<Boolean>(false);
-    
+
     // Set minimum date
-    var minimumDate: Day; 
-    if(minimumDateAttribute?.value){
-        minimumDate = {year: minimumDateAttribute.value?.getFullYear(), month: minimumDateAttribute.value?.getMonth() + 1, day: minimumDateAttribute.value?.getDate()}
+    var minimumDate: Day;
+    if (minimumDateAttribute?.value) {
+        minimumDate = { year: minimumDateAttribute.value?.getFullYear(), month: minimumDateAttribute.value?.getMonth() + 1, day: minimumDateAttribute.value?.getDate() }
     }
-    else{
-        const minDate = new Date(1900,1,1);
-        minimumDate = {year: minDate.getFullYear(), month: minDate.getMonth() + 1, day: minDate.getDate()}
+    else {
+        const minDate = new Date(1900, 1, 1);
+        minimumDate = { year: minDate.getFullYear(), month: minDate.getMonth() + 1, day: minDate.getDate() }
     }
 
     // Set maximum date
     var maximumDate: Day;
-    if(maximumDateAttribute?.value){
-        maximumDate = {year: maximumDateAttribute.value?.getFullYear(), month: maximumDateAttribute.value?.getMonth() + 1, day: maximumDateAttribute.value?.getDate()}
+    if (maximumDateAttribute?.value) {
+        maximumDate = { year: maximumDateAttribute.value?.getFullYear(), month: maximumDateAttribute.value?.getMonth() + 1, day: maximumDateAttribute.value?.getDate() }
     }
-    else{
-        const maxDate = new Date(3000,11,31);
-        maximumDate = {year: maxDate.getFullYear(), month: maxDate.getMonth() + 1, day: maxDate.getDate()}
+    else {
+        const maxDate = new Date(3000, 11, 31);
+        maximumDate = { year: maxDate.getFullYear(), month: maxDate.getMonth() + 1, day: maxDate.getDate() }
     }
 
     // Update attribute and widget on date save
@@ -69,7 +71,7 @@ export function DatepickerWeb({
                 month: newDate.month,
                 day: newDate.day
             })
-            attribute.setValue(new Date(newDate.year, (newDate.month-1), newDate.day));
+            attribute.setValue(new Date(newDate.year, (newDate.month - 1), newDate.day));
             setShowCalendar(false);
         }
     }, [setSelectedDay, setShowCalendar])
@@ -77,18 +79,43 @@ export function DatepickerWeb({
     //Function to detect click outside the widget
     useEffect(() => {
         document.addEventListener('mouseup', function (e: any) {
-                var outer = document.getElementById(name+"-calendar");
-                if(!(outer?.contains(e.target))) {
-                    setShowCalendar(false);
-                }
+            var outer = document.getElementById(name + "-calendar");
+            if (!(outer?.contains(e.target))) {
+                setShowCalendar(false);
+            }
         })
     }, [])
+
+    //Function to get disabled days
+    const getDisabledDays = () => {
+        var disabledDays: Day[] = [];
+
+        if (disabledDaysSource && disabledDaysAttribute && disabledDaysSource.items) {
+            //If disabled days configured and has items, iterate over source
+            for (var i = 0; i < disabledDaysSource.items?.length; i++) {
+                //Get value of attribute
+                var disabledDayValue = disabledDaysAttribute.get(disabledDaysSource.items[i]);
+                if (disabledDayValue.value) {
+                    // Get value and create Day value
+                    var disabledDay = {
+                        year: disabledDayValue.value?.getFullYear(),
+                        month: disabledDayValue.value?.getMonth() + 1,
+                        day: disabledDayValue.value?.getDate()
+                    }
+                    // Put in list
+                    disabledDays.push(disabledDay);
+                }
+            }
+        }
+        //return list
+        return disabledDays;
+    }
 
     //Render the calendar if showCalendar is true
     const renderCalendar = useCallback(() => {
         if (showCalendar) {
             return (
-                <div id={name+"-calendar"} className="calendarOuterDiv">
+                <div id={name + "-calendar"} className="calendarOuterDiv">
                     <Calendar
                         value={selectedDay}
                         onChange={(newvalue: DayValue) => onDateChange(newvalue)}
@@ -98,6 +125,7 @@ export function DatepickerWeb({
                         calendarClassName={calendarClassName?.value}
                         calendarTodayClassName={calendarTodayClassName?.value}
                         calendarSelectedDayClassName={calendarSelectedDayClassName?.value}
+                        disabledDays={getDisabledDays()}
                     />
                 </div>
             )
