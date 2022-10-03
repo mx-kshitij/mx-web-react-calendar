@@ -10,7 +10,7 @@
     xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
 >
     <name>Datepicker Web</name>
-    <description>My widget description</description>
+    <description>Customizable date picker with Material UI</description>
     <icon />
     <properties>
         <propertyGroup caption="General">
