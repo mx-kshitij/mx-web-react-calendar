@@ -35,7 +35,7 @@
                 <caption>Source</caption>
                 <description />
             </property>
-            <property key="disabledDaysAttribute" type="attribute" dataSource="disabledDaysSource">
+            <property key="disabledDaysAttribute" type="attribute" dataSource="disabledDaysSource" required="false">
                 <caption>Attribute</caption>
                 <description>Date time attribute</description>
                 <attributeTypes>
